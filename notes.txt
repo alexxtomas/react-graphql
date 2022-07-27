@@ -3,3 +3,10 @@ podemos indicar que queremos hacer por ejemplo para una query seria -> "query": 
 
 Una alternativa a creat-react-app es @vitejs para ejecutarlo -> npm init vite nombreDelProyecto -- --template react
 Vitejs es un empaquetador de aplicaciones igual que los webpack y nos crea la aplicacion mas rapido que creat-react-app porque es mas moderno.
+
+relay.dev es el cliente de GraphQl que esta utilizando facebook en sus productos
+
+Watch -> https://www.facebook.com/watch/?v=1752210688215238
+
+Vamos a utilizar el cliente de apollo-client para React
+Para ello necesitamos instalar -> npm install @apollo/client graphql

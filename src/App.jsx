@@ -3,15 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  useEffect(() => {
-    fetch('http://localhost:4000/', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({query: 'query { allPersons { name } }'})
-    })
-    .then(res => res.json())
-    .then(({data}) => console.log(data))
-  }) 
+ 
 
   return (
     <div className="App">

@@ -1,0 +1,5 @@
+Para hacer una query a graphql siemmpre tiene el mismo end point y la peticion siempre debe ser de tipo POST, pero en el body de la request
+podemos indicar que queremos hacer por ejemplo para una query seria -> "query": "query { allPersons { name } }"
+
+Una alternativa a creat-react-app es @vitejs para ejecutarlo -> npm init vite nombreDelProyecto -- --template react
+Vitejs es un empaquetador de aplicaciones igual que los webpack y nos crea la aplicacion mas rapido que creat-react-app porque es mas moderno.

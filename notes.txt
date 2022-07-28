@@ -15,3 +15,7 @@ Al usar el useQuery nos devuelve un objeto que tiene mucha informacion pero la m
 La primera vez que se realice la query va a tener el loading en true y el data va a ser undefinded
 Despues nos devuelve ya los resultados con el data con la informacion realizada con la query o si hay un error pues se encontrara en la 
 propiedad del objeto error y el loading estara en false
+
+
+Apollo Client Developer Tools -> Instalamos la extension y añadimos en el client el connectToDevTools: true
+Podemos ver la cache las queries y mucha infromacion mas

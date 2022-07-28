@@ -1,31 +1,27 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
-import {gql, useQuery} from '@apollo/client'
 import Persons from './Persons'
 import PersonFrom from './PersonFrom'
+import Notify from './Notify'
+import { usePersons } from './persons/custom-hooks'
+import { useState } from 'react'
 
-const ALL_PERSONS = gql`
-  query {
-    allPersons {
-      id
-      name
-      phone
-      address {
-        street
-        city
-      }
 
-    }
-  }
-`
 
 function App() {
-  // Usamos el poollInterval pera que realice una peticion cada dos segundos 
-  const {data, error, loading} = useQuery(ALL_PERSONS, {pollInterval: 2000})
+  const {data, error, loading} = usePersons()
+  const [errorMessage, setErrorMessage] = useState(null)
 
+  const notifyError = (message) => {
+    setErrorMessage(message)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 3000)
+  } 
   if (error) return <span style='color: red'>{error}</span>
   return (
     <div className="App">
+      <Notify errorMessage={errorMessage}/>
       <div>
         <a href="https://reactjs.org" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
@@ -36,7 +32,7 @@ function App() {
       ? <p>Loading...</p> 
       : <Persons persons={data?.allPersons}/>
       }
-      <PersonFrom />
+      <PersonFrom notifyError={notifyError} />
     </div>
   )
 }

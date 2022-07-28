@@ -1,43 +1,37 @@
-// Imporamos el hook useMutation para realizar la mutacion
-import { gql, useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import { useState } from "react"
+// Importamos la query que queremos hacer el refetch cuando se haga la mutacion
+import { ALL_PERSONS } from "./persons/graphql-queries"
+import { CREATE_PERSON } from "./persons/graphql-mutations"
 
-// Creamos la mutacion que queremos realizar
-const CREATE_PERSON = gql`
-mutation createPerson($name: String!, $street: String!, $city: String!, $phone: String) {
-    addPerson(
-        name: $name
-        phone: $phone
-        street: $street
-        city: $city
-    ) {
-        name
-        phone
-        address {
-            street
-            city
-        }
-        id
-    }
-}
-`
 
-const PersonFrom = () => {
-    // Creamos los estados para el formulario
+
+const PersonFrom = ({notifyError}) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [street, setStreet] = useState('')
     const [city, setCity] = useState('')
 
-    // Utilizamos el useMutation que le pasamos la mutacion que queremos hacer y tenemos el createPerson para crear a la persona
-    const [createPerson] = useMutation(CREATE_PERSON)
+    const [createPerson] = useMutation(CREATE_PERSON, {
+        // Realizamos el refetch de la query cuando se realice la mutacion 
+        refetchQueries: [ {query: ALL_PERSONS}],
+        // Decimos que hacer cuando suceda un error
+        onError: (error) => {
+            notifyError(error.graphQLErrors[0].message)
+        }
+    })
 
     const handleSubmit = event => {
         event.preventDefault()
-        // Creamos la persona y le damos el valor a las variables
-        createPerson( {variables: {name, phone, street, city} })
+        
+        if (name === '') createPerson( {variables: { phone, street, city} })
+        else if (phone === '') createPerson( {variables: {name, street, city} })
+        else if (street === '') createPerson( {variables: {name, phone, city} })
+        else if (city === '') createPerson( {variables: {name, phone, street} })
+        else createPerson( {variables: {name, phone, street, city} })
+    
         setName('')
-        setPhone('')
+        setPhone('') 
         setStreet('')
         setCity('')
     }

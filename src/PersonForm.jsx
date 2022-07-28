@@ -1,21 +1,18 @@
 import { useMutation } from "@apollo/client"
 import { useState } from "react"
-// Importamos la query que queremos hacer el refetch cuando se haga la mutacion
 import { ALL_PERSONS } from "./persons/graphql-queries"
 import { CREATE_PERSON } from "./persons/graphql-mutations"
 
 
 
-const PersonFrom = ({notifyError}) => {
+const PersonForm = ({notifyError}) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [street, setStreet] = useState('')
     const [city, setCity] = useState('')
 
     const [createPerson] = useMutation(CREATE_PERSON, {
-        // Realizamos el refetch de la query cuando se realice la mutacion 
         refetchQueries: [ {query: ALL_PERSONS}],
-        // Decimos que hacer cuando suceda un error
         onError: (error) => {
             notifyError(error.graphQLErrors[0].message)
         }
@@ -24,11 +21,7 @@ const PersonFrom = ({notifyError}) => {
     const handleSubmit = event => {
         event.preventDefault()
         
-        if (name === '') createPerson( {variables: { phone, street, city} })
-        else if (phone === '') createPerson( {variables: {name, street, city} })
-        else if (street === '') createPerson( {variables: {name, phone, city} })
-        else if (city === '') createPerson( {variables: {name, phone, street} })
-        else createPerson( {variables: {name, phone, street, city} })
+        createPerson( {variables: {name, phone, street, city} })
     
         setName('')
         setPhone('') 
@@ -50,4 +43,4 @@ const PersonFrom = ({notifyError}) => {
     )
 }
 
-export default PersonFrom
+export default PersonForm

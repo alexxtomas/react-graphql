@@ -1,7 +1,8 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
 import Persons from './Persons'
-import PersonFrom from './PersonFrom'
+import PersonForm from './PersonForm'
+import PhoneForm from './PhoneForm'
 import Notify from './Notify'
 import { usePersons } from './persons/custom-hooks'
 import { useState } from 'react'
@@ -32,7 +33,8 @@ function App() {
       ? <p>Loading...</p> 
       : <Persons persons={data?.allPersons}/>
       }
-      <PersonFrom notifyError={notifyError} />
+      <PhoneForm notifyError={notifyError}/>
+      <PersonForm notifyError={notifyError} />
     </div>
   )
 }

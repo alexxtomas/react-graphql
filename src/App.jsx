@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-// Importamos el hook useQuery
 import {gql, useQuery} from '@apollo/client'
 import Persons from './Persons'
 
@@ -21,10 +19,8 @@ const ALL_PERSONS = gql`
 `
 
 function App() {
-  /* Utilizamos el useQuery y le pasamos la query que queremos realizar dentro de result tenemos el resultado de la query */
   const {data, error, loading} = useQuery(ALL_PERSONS)
 
-  // Si hay un error mostramos el error
   if (error) return <span style='color: red'>{error}</span>
   return (
     <div className="App">

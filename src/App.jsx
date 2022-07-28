@@ -2,6 +2,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import {gql, useQuery} from '@apollo/client'
 import Persons from './Persons'
+import PersonFrom from './PersonFrom'
 
 const ALL_PERSONS = gql`
   query {
@@ -19,7 +20,8 @@ const ALL_PERSONS = gql`
 `
 
 function App() {
-  const {data, error, loading} = useQuery(ALL_PERSONS)
+  // Usamos el poollInterval pera que realice una peticion cada dos segundos 
+  const {data, error, loading} = useQuery(ALL_PERSONS, {pollInterval: 2000})
 
   if (error) return <span style='color: red'>{error}</span>
   return (
@@ -30,12 +32,11 @@ function App() {
         </a>
       </div>
       {
-        // Si el loading no se ha completado mostramos Loading... y si no mostramos el componente Persons
       loading 
       ? <p>Loading...</p> 
       : <Persons persons={data?.allPersons}/>
       }
-      
+      <PersonFrom />
     </div>
   )
 }

@@ -17,7 +17,6 @@ query findPersonByName($nameToSearch: String!) {
 const Persons = ({persons}) => {
     const [getPerson, result] = useLazyQuery(FIND_PERSON)
 
-    // Creamos un estado para guardar la persona que encontremos
     const [person, setPerson] = useState(null)
 
     useEffect(() => {

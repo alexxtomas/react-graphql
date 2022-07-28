@@ -5,7 +5,6 @@ import './index.css'
 import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql} from '@apollo/client'
 
 const client = new ApolloClient({
-  // Para conectar las devTools de Apollo Client
   connectToDevTools: true,
   cache: new InMemoryCache(),
   link: new HttpLink({

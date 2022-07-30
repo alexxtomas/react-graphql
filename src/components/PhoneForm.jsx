@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client"
 import {  useState } from "react"
-import { EDIT_NUMBER } from "./persons/graphql-mutations"
+import { EDIT_NUMBER } from "../persons/graphql-mutations"
 
 
 

@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import { useState } from "react"
-import { ALL_PERSONS } from "./persons/graphql-queries"
-import { CREATE_PERSON } from "./persons/graphql-mutations"
+import { ALL_PERSONS } from "../persons/graphql-queries"
+import { CREATE_PERSON } from "../persons/graphql-mutations"
 
 
 

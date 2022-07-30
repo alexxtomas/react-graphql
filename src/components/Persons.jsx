@@ -15,6 +15,7 @@ query findPersonByName($nameToSearch: String!) {
 }
 `
 const Persons = ({persons}) => {
+    
     const [getPerson, result] = useLazyQuery(FIND_PERSON)
 
     const [person, setPerson] = useState(null)

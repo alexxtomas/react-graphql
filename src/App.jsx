@@ -1,25 +1,43 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
-import Persons from './Persons'
-import PersonForm from './PersonForm'
-import PhoneForm from './PhoneForm'
-import Notify from './Notify'
+import Persons from './components/Persons'
+import PersonForm from './components/PersonForm'
+import PhoneForm from './components/PhoneForm'
+import LoginFrom from './components/LoginFrom'
+import Notify from './components/Notify'
 import { usePersons } from './persons/custom-hooks'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useApolloClient } from '@apollo/client'
 
 
 
 function App() {
   const {data, error, loading} = usePersons()
   const [errorMessage, setErrorMessage] = useState(null)
+  const [token, setToken] = useState(() => localStorage.getItem('loggedUserToken'))
+  // Lo utilizamos para limpiar la cache
+  const client = useApolloClient()
+
+  useEffect(() => {
+    const savedToken = window.localStorage.getItem('loggedUserToken')
+    if(savedToken) setToken(savedToken)
+  }, [])
 
   const notifyError = (message) => {
     setErrorMessage(message)
     setTimeout(() => {
       setErrorMessage(null)
     }, 3000)
+
+    
   } 
-  if (error) return <span style='color: red'>{error}</span>
+  const logout = () => {
+      setToken(null)
+      localStorage.clear()
+      // Limpiamos la cache
+      client.resetStore()
+    }
+  if (error) return <span style={{color: 'red'}}>{error.message}</span>
   return (
     <div className="App">
       <Notify errorMessage={errorMessage}/>
@@ -33,8 +51,22 @@ function App() {
       ? <p>Loading...</p> 
       : <Persons persons={data?.allPersons}/>
       }
-      <PhoneForm notifyError={notifyError}/>
-      <PersonForm notifyError={notifyError} />
+      {
+        token 
+        ? 
+          <>
+           <button onClick={logout}>Logout</button>
+            <PhoneForm notifyError={notifyError}/>
+            <PersonForm notifyError={notifyError} />
+          </>
+        
+        : 
+        <>
+        <LoginFrom setToken={setToken} notifyError={notifyError}/>
+
+        </>
+      }
+      
     </div>
   )
 }

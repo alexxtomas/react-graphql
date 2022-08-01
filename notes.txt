@@ -23,3 +23,6 @@ Podemos ver la cache las queries y mucha infromacion mas
 Al realizar la mutacion de editNumber se actualiza automaticamente el numero, eso es debido a que el apolloclient ve que la persona
 tiene una id y lo que hace es mirar la cache y ve que hay una misma persona con la misma id en la cache y la cambia automaticamente
 Para ello debes devolver la id en la mutacion si no esto no funcionara y el dato a cambiar en este caso el phone
+
+
+Creamos un fragmento en persons/graphql-queries.js
